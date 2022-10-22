@@ -1,37 +1,48 @@
-<script>
+<script lang="ts">
     import Window from "./Screen.svelte";
+    import Variables from "../components/program_info/Variables.svelte";
+    import ProgramCode from "../components/program_info/ProgramCode.svelte";
+    import Tags from "../components/program_info/Tags.svelte";
+    import Icon from "svelte-icons-pack/Icon.svelte";
+    import VscFileCode from "svelte-icons-pack/vsc/VscFileCode";
+    import AiOutlineTags from "svelte-icons-pack/ai/AiOutlineTags";
+    import BsBoxes from "svelte-icons-pack/bs/BsBoxes";
+
+    let items = ["Program Code", "variables", "Tags"];
+    let icons = [VscFileCode, BsBoxes, AiOutlineTags];
+    let activeItem = items[0];
 </script>
 
 <Window class="bg-amber-300/90">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita reiciendis
-    totam exercitationem sunt tempora! Eos vel distinctio omnis ab dignissimos
-    reprehenderit ducimus aliquid dicta unde qui. Pariatur, harum illum. Ipsam.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias soluta
-    assumenda dolores, officiis perferendis cum vero suscipit ullam a aperiam
-    recusandae dolore natus labore tempora aspernatur ut asperiores perspiciatis
-    commodi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-    consequatur nostrum repellat. Ullam ea rem ratione, illo delectus inventore
-    odit corrupti! Ex commodi cupiditate expedita assumenda sit quos nisi ipsam.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia dolor placeat
-    vitae incidunt nulla iure doloribus autem esse mollitia vel explicabo
-    cupiditate fugit repellendus, nisi dignissimos blanditiis tempore deserunt
-    alias. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi
-    ratione voluptatum nostrum ipsam voluptate ullam nihil veniam aperiam ipsa
-    explicabo? Nihil exercitationem deserunt architecto quibusdam quisquam
-    omnis, nostrum debitis numquam. Lorem ipsum dolor sit amet consectetur
-    adipisicing elit. Omnis, alias saepe! Excepturi itaque aperiam repellat
-    quisquam, debitis voluptates sequi architecto magnam delectus numquam neque
-    ipsa veritatis eum harum culpa ratione. Lorem ipsum dolor sit, amet
-    consectetur adipisicing elit. Alias necessitatibus quia totam, dolores
-    asperiores laboriosam cumque! Laboriosam doloribus non, accusamus suscipit
-    adipisci animi rerum, nisi voluptatum modi officia corporis voluptatibus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint dignissimos
-    alias illum? Facere deserunt ipsum omnis nobis impedit, non qui ullam ab!
-    Deleniti iusto eaque architecto alias quas doloremque soluta? Lorem ipsum
-    dolor sit amet consectetur adipisicing elit. Repudiandae ducimus corporis
-    voluptates. Adipisci praesentium, quo qui dolorem earum perferendis aperiam
-    maxime. Nostrum quia hic illo enim quisquam? Odio, obcaecati. Amet. Lorem
-    ipsum dolor sit amet, consectetur adipisicing elit. Animi quae aut ducimus
-    consequatur quod asperiores quia eius. Repellendus vel asperiores ex
-    architecto aut, saepe, exercitationem iusto, minima aliquam non accusamus!
+    <div>
+        <lu class="flex justify-start list-none">
+            {#each items as item, i}
+                <li
+                    class:active={item === activeItem}
+                    class="py-1 px-5 cursor-pointer rounded-t-lg hover:bg-amber-700/25ñ border-b-2 border-amber-700/40"
+                    on:click={() => (activeItem = item)}
+                >
+                    {item}
+                    <Icon src={icons[i]} size="20" className="inline-block" />
+                </li>
+            {/each}
+        </lu>
+    </div>
+
+    <div class="mt-2">
+        {#if activeItem === "Program Code"}
+            <ProgramCode />
+        {:else if activeItem === "variables"}
+            <Variables />
+        {:else if activeItem === "Tags"}
+            <Tags />
+        {/if}
+    </div>
 </Window>
+
+<style>
+    .active {
+        background-color: rgb(217 119 6 / 0.5);
+        border-bottom: 3px solid rgb(146 64 14);
+    }
+</style>

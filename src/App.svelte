@@ -6,7 +6,7 @@
   import ProgramInfo from "./views/ProgramInfo.svelte";
 </script>
 
-<div class="grid grid-cols-2 h-full">
+<div class="grid grid-cols-2 h-full font-semibold">
   <TaskManager />
   <MemoryMap />
   <ProgramInfo />

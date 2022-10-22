@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Icon from "svelte-icons-pack/Icon.svelte";
   import CgPlayButtonO from "svelte-icons-pack/cg/CgPlayButtonO";
   import CgPlayTrackNextO from "svelte-icons-pack/cg/CgPlayTrackNextO";

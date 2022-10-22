@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Printer from "../components/outputs/Printer.svelte";
     import Monitor from "../components/outputs/Monitor.svelte";
     import Window from "./Screen.svelte";

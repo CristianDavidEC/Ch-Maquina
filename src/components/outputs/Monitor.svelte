@@ -1,7 +1,7 @@
 <div class="block border-2 rounded-lg">
-    <img class="m-auto" src="escritorio.png" alt="monitor" />
+    <img class="m-auto mt-1" src="escritorio.png" alt="monitor" />
 
-    <p class="m-4 font-semibold">
+    <p class="m-4">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
         natus sapiente qui dignissimos impedit. Repellendus nesciunt sapiente
         explicabo doloribus nihil ullam dolore aspernatur atque deleniti quos
@@ -11,6 +11,6 @@
 
 <style>
     img {
-        width: 150px;
+        width: 130px;
     }
 </style>
