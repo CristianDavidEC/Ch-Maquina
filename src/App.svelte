@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import Taskbar from "./views/Taskbar.svelte";
   import TaskManager from "./views/TaskManager.svelte";
   import Display from "./views/Outputs.svelte";
@@ -11,4 +11,5 @@
   <MemoryMap />
   <ProgramInfo />
   <Display />
+  <Taskbar />
 </div>

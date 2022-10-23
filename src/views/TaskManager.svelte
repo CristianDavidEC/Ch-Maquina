@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import ProgramDescription from "../components/taks_manager/ProgramDescription.svelte";
   import LoadProgram from "../components/taks_manager/LoadProgram.svelte";
   import MemoryManager from "../components/taks_manager/MemoryManager.svelte";

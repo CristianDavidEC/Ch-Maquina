@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import Icon from "svelte-icons-pack/Icon.svelte";
     import BsMemory from "svelte-icons-pack/bs/BsMemory";
     import BsCpu from "svelte-icons-pack/bs/BsCpu";

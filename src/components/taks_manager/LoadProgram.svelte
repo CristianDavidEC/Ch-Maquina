@@ -1,6 +1,27 @@
 <script>
-    import Icon from "svelte-icons-pack/Icon.svelte";
     import FaSolidLaptopCode from "svelte-icons-pack/fa/FaSolidLaptopCode";
+    import Icon from "svelte-icons-pack/Icon.svelte";
+
+    let files;
+
+    $: if (files) {
+        for (const file of files) {
+            console.log(file);
+        }
+    }
+
+    const onFileSelected = (event) => {
+        let filesEvent = event.target.files;
+        for (const file of filesEvent) {
+            let archivo = file;
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let content = e.target.result;
+                console.log(content);
+            };
+            reader.readAsText(archivo);
+        }
+    };
 </script>
 
 <div class="mt-2 border-t-2">
@@ -22,6 +43,7 @@
         type="file"
         id="formFileMultiple"
         multiple
+        on:change={onFileSelected}
     />
 </div>
 

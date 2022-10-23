@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import Window from "./Screen.svelte";
     import Variables from "../components/program_info/Variables.svelte";
     import ProgramCode from "../components/program_info/ProgramCode.svelte";
@@ -17,6 +17,7 @@
     <div>
         <lu class="flex justify-start list-none">
             {#each items as item, i}
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <li
                     class:active={item === activeItem}
                     class="py-1 px-5 cursor-pointer rounded-t-lg hover:bg-amber-700/25ñ border-b-2 border-amber-700/40"
