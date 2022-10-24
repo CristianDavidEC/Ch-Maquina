@@ -1,25 +1,19 @@
 <script>
     import FaSolidLaptopCode from "svelte-icons-pack/fa/FaSolidLaptopCode";
     import Icon from "svelte-icons-pack/Icon.svelte";
+    import { syntaxCheck } from "../../lib/core/check";
 
-    let files;
-
-    $: if (files) {
-        for (const file of files) {
-            console.log(file);
-        }
-    }
-
-    const onFileSelected = (event) => {
-        let filesEvent = event.target.files;
+    const processFilesSelected = (event) => {
+        const filesEvent = event.target.files;
         for (const file of filesEvent) {
-            let archivo = file;
-            let reader = new FileReader();
+            const reader = new FileReader();
             reader.onload = (e) => {
-                let content = e.target.result;
-                console.log(content);
+                const content = e.target.result;
+                const splitcontent = content.toString().split("\r\n");
+                const nameProram = file.name;
+                syntaxCheck(splitcontent, nameProram);
             };
-            reader.readAsText(archivo);
+            reader.readAsText(file);
         }
     };
 </script>
@@ -43,7 +37,7 @@
         type="file"
         id="formFileMultiple"
         multiple
-        on:change={onFileSelected}
+        on:change={processFilesSelected}
     />
 </div>
 

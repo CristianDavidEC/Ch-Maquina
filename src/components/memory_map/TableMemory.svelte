@@ -4,8 +4,9 @@
     import SiCodefactor from "svelte-icons-pack/si/SiCodefactor";
     import VscSymbolVariable from "svelte-icons-pack/vsc/VscSymbolVariable";
     import FiCpu from "svelte-icons-pack/fi/FiCpu";
-    import BiMemoryCard from "svelte-icons-pack/bi/BiMemoryCard";
     import CgHashtag from "svelte-icons-pack/cg/CgHashtag";
+
+    import { program } from "../../store/program_store";
 </script>
 
 <div>
@@ -39,7 +40,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each Array(3) as _, i}
+            {#each $program.code as line}
                 <tr
                     class="border-b-2 transition duration-150 ease-in-out hover:bg-blue-800/20"
                 >
@@ -47,23 +48,8 @@
                         <Icon src={FiCpu} size="18" className="inline-block" />
                     </td>
                     <td class="px-3 py-2"> A00X81 </td>
-                    <td class="px-3 py-2"> Var nombre S puede</td>
+                    <td class="px-3 py-2">{line}</td>
                     <td class="px-3 py-2"> Colombia </td>
-                </tr>
-
-                <tr
-                    class="border-b-2 transition duration-150 ease-in-out hover:bg-blue-800/20"
-                >
-                    <td class="px-4 py-2">
-                        <Icon
-                            src={BiMemoryCard}
-                            size="18"
-                            className="inline-block"
-                        />
-                    </td>
-                    <td class="px-3 py-2"> B00X53 </td>
-                    <td class="px-3 py-2"> Var nombre S </td>
-                    <td class="px-3 py-2"> 4 </td>
                 </tr>
             {/each}
         </tbody>
