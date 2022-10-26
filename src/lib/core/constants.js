@@ -52,6 +52,13 @@ const validString = {
   vayasi: "vayasi",
 }
 
+const validTypeVariables = {
+  I: true,
+  R: true,
+  C: true,
+  L: true,
+}
+
 const propertysProgram = {
   name: "name",
   state: "state",
@@ -61,6 +68,7 @@ const propertysProgram = {
   variables: "variables",
   tags: "tags",
   code: "code",
+  errors: "errors",
 }
 
-export { validInstructions, validString, propertysProgram }
+export { validInstructions, validString, propertysProgram, validTypeVariables }

@@ -29,6 +29,7 @@ const objectProgram = {
   variables: [],
   tags: [],
   code: [],
+  errors: [],
 }
 
 export const program = createProgramStore()
