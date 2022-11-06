@@ -59,16 +59,31 @@ const validTypeVariables = {
   L: true,
 }
 
-const propertysProgram = {
+const propertyProgram = {
   name: "name",
   state: "state",
   codeSize: "codeSize",
   acumulator: "acumulator",
-  codeIndex: "codeIndex",
+  codeIndexCurrent: "codeIndexCurrent",
   variables: "variables",
   tags: "tags",
   code: "code",
   errors: "errors",
 }
 
-export { validInstructions, validString, propertysProgram, validTypeVariables }
+const statusProgram = {
+  ready: "ready",
+  running: "running",
+  stopped: "stopped",
+  finished: "finished",
+  loading: "loading",
+  wrong: "wrong",
+}
+
+export {
+  validInstructions,
+  validString,
+  propertyProgram,
+  validTypeVariables,
+  statusProgram,
+}

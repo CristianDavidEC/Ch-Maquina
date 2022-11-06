@@ -1,9 +1,9 @@
 <div class="max-h-96 min-h-96 overflow-auto rounded-md p-5 m-1 {$$props.class}">
-    <slot />
+  <slot />
 </div>
 
 <style>
-    div::-webkit-scrollbar {
-        display: none;
-    }
+  div::-webkit-scrollbar {
+    display: none;
+  }
 </style>

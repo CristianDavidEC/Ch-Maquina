@@ -1,79 +1,50 @@
-import { program } from "../../store/program_store"
-import { findIndexLine } from "./check"
-import {
-  propertysProgram,
-  validInstructions,
-  validString,
-  validTypeVariables,
-} from "./constants"
-import {
-  errorInvalidDeclaration,
-  errorInvalidInstruction,
-  errorSyntaxNameVariable,
-  errorTypeOfVariable,
-  errorTypeValue,
-  errorUseReservedWord,
-  errorVariableNameLong,
-} from "./errors_variable"
+import { programStore } from "../../store/program_store"
 
-const regexVariableName = new RegExp("^[a-zA-Z_][a-zA-Z0-9_]*$")
+import { validTypeVariables } from "./constants"
 
-const findVariables = (code) => {
-  for (const line of code) {
-    line.trim()
-    let splitLine = line.split(" ")
-    if (validString.nueva === splitLine[0]) {
-      checkVariableLine(code, line, splitLine)
-    }
+import { errorTypeOfVariable, errorTypeValue } from "./errors/errors_variable"
+
+import {
+  errorInvalidLine,
+  errorDeclarationProperty,
+} from "./errors/errors_general"
+
+const declareVariables = (splitLine, indexLine) => {
+  if (splitLine[0] !== "nueva") {
+    return
   }
-}
 
-const checkVariableLine = (code, line, splitLine) => {
-  const indexLine = findIndexLine(code, line)
   const error = checkVaribleSyntax(splitLine, indexLine)
-
   if (error) {
-    console.log(error)
-    program.addElementToListProperty(propertysProgram.errors, error)
+    programStore.addElementToListProperty("errors", error)
 
     return
   }
 
-  let newVariable = createVariable(splitLine, indexLine)
-  program.addElementToListProperty(propertysProgram.variables, newVariable)
+  const newVariable = createVariable(splitLine, indexLine)
+  programStore.addElementToListProperty("variables", newVariable)
 }
 
 const checkVaribleSyntax = (splitLine, indexLine) => {
   if (splitLine.length < 3) {
-    return errorInvalidDeclaration(splitLine, indexLine)
+    return errorInvalidLine(splitLine, indexLine)
   }
 
-  if (!validInstructions[splitLine[0]]) {
-    return errorInvalidInstruction(splitLine[0], indexLine)
-  }
-
-  if (splitLine[1].length > 255) {
-    return errorVariableNameLong(splitLine[1], indexLine)
-  }
-
-  if (validInstructions[splitLine[1]]) {
-    return errorUseReservedWord(splitLine[1], indexLine)
-  }
-
-  if (!regexVariableName.test(splitLine[1])) {
-    return errorSyntaxNameVariable(splitLine[1], indexLine)
+  const error = errorDeclarationProperty(splitLine, indexLine)
+  if (error) {
+    return error
   }
 
   if (!validTypeVariables[splitLine[2]]) {
     return errorTypeOfVariable(splitLine[2], indexLine)
   }
 
-  if (!validateValue(splitLine)) {
+  if (!checkValue(splitLine)) {
     return errorTypeValue(splitLine[2], indexLine)
   }
 }
 
-const validateValue = (splitLine) => {
+const checkValue = (splitLine) => {
   let value = splitLine.slice(3).join(" ")
 
   if (splitLine[2] !== "C") {
@@ -93,9 +64,9 @@ const validateValue = (splitLine) => {
 
 const createVariable = (splitLine, indexLine) => {
   return {
-    indexLine: indexLine,
     name: splitLine[1],
     type: splitLine[2],
+    indexLine: indexLine,
     content: splitLine.slice(0, 3).join(" "),
     value: assignValue(splitLine[2], splitLine.slice(3).join(" ")),
   }
@@ -111,9 +82,7 @@ const assignValue = (type, value) => {
       return Number(value)
     case "L":
       return Number(value)
-    default:
-      return 0
   }
 }
 
-export { findVariables }
+export { declareVariables }

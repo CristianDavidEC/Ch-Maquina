@@ -4,7 +4,7 @@
   import AiOutlineCode from "svelte-icons-pack/ai/AiOutlineCode"
   import BsFileEarmarkCode from "svelte-icons-pack/bs/BsFileEarmarkCode"
   import BiPlayCircle from "svelte-icons-pack/bi/BiPlayCircle"
-  import { program } from "../../store/program_store"
+  import { programStore } from "../../store/program_store"
 </script>
 
 <div>
@@ -28,9 +28,9 @@
         <tr
           class="border-b-2 transition duration-150 ease-in-out hover:hover:bg-rose-600/20"
         >
-          <td class="px-3 py-2"> {$program.name} </td>
-          <td class="px-3 py-2"> Executing </td>
-          <td class="px-3 py-2"> 56 </td>
+          <td class="px-3 py-2"> {$programStore.name} </td>
+          <td class="px-3 py-2"> {$programStore.state} </td>
+          <td class="px-3 py-2"> {$programStore.codeSize} </td>
           <td class="px-3 py-2">
             <Icon src={BiPlayCircle} size="25" />
           </td>

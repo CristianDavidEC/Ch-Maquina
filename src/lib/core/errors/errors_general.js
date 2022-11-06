@@ -1,4 +1,7 @@
-const errorInvalidDeclaration = (lines, indexCode) => {
+import { validInstructions } from "../constants"
+import { regexNameProp } from "../check"
+
+const errorInvalidLine = (lines, indexCode) => {
   return `Error: ${lines.join(" ")} is invalid declaration | ${indexCode}:`
 }
 
@@ -14,24 +17,29 @@ const errorUseReservedWord = (instruction, indexCode) => {
   return `Error: ${instruction} is a reserved word | ${indexCode}:`
 }
 
-const errorSyntaxNameVariable = (instruction, indexCode) => {
+const errorSyntaxName = (instruction, indexCode) => {
   return `Error: ${instruction} does not meet variable name specifications | ${indexCode}:`
 }
 
-const errorTypeOfVariable = (instruction, indexCode) => {
-  return `Error: ${instruction} the type of variable is unknown | ${indexCode}:`
-}
+const errorDeclarationProperty = (splitLine, indexLine) => {
+  if (splitLine[1].length > 255) {
+    return errorVariableNameLong(splitLine[1], indexLine)
+  }
 
-const errorTypeValue = (instruction, indexCode) => {
-  return `Error: ${instruction} the value is not of the stated type | ${indexCode}:`
+  if (validInstructions[splitLine[1]]) {
+    return errorUseReservedWord(splitLine[1], indexLine)
+  }
+
+  if (!regexNameProp.test(splitLine[1])) {
+    return errorSyntaxName(splitLine[1], indexLine)
+  }
 }
 
 export {
-  errorInvalidDeclaration,
+  errorInvalidLine,
   errorInvalidInstruction,
   errorVariableNameLong,
   errorUseReservedWord,
-  errorSyntaxNameVariable,
-  errorTypeOfVariable,
-  errorTypeValue,
+  errorSyntaxName,
+  errorDeclarationProperty,
 }
