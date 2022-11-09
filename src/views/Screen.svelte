@@ -1,4 +1,4 @@
-<div class="max-h-96 min-h-96 overflow-auto rounded-md p-5 m-1 {$$props.class}">
+<div class="min-h-[335px] overflow-auto rounded-md p-5 {$$props.class}">
   <slot />
 </div>
 

@@ -2,12 +2,9 @@ import { programStore } from "../../store/program_store"
 
 import { validTypeVariables } from "./constants"
 
-import { errorTypeOfVariable, errorTypeValue } from "./errors/errors_variable"
+import { errorTypeOfVariable, errorTypeValue } from "./errors/errors"
 
-import {
-  errorInvalidLine,
-  errorDeclarationProperty,
-} from "./errors/errors_general"
+import { errorInvalidLine, checkDeclarationProperty } from "./errors/errors"
 
 const declareVariables = (splitLine, indexLine) => {
   if (splitLine[0] !== "nueva") {
@@ -22,6 +19,7 @@ const declareVariables = (splitLine, indexLine) => {
   }
 
   const newVariable = createVariable(splitLine, indexLine)
+  //console.log(newVariable)
   programStore.addElementToListProperty("variables", newVariable)
 }
 
@@ -30,7 +28,7 @@ const checkVaribleSyntax = (splitLine, indexLine) => {
     return errorInvalidLine(splitLine, indexLine)
   }
 
-  const error = errorDeclarationProperty(splitLine, indexLine)
+  const error = checkDeclarationProperty(splitLine, indexLine)
   if (error) {
     return error
   }

@@ -23,6 +23,7 @@ const validInstructions = {
   imprima: true,
   vaya: true,
   vayasi: true,
+  retorne: true,
 }
 
 const validString = {
@@ -50,6 +51,7 @@ const validString = {
   imprima: "imprima",
   vaya: "vaya",
   vayasi: "vayasi",
+  retorne: "retorne",
 }
 
 const validTypeVariables = {

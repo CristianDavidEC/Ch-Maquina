@@ -1,9 +1,6 @@
 import { programStore } from "./../../store/program_store"
-import {
-  errorInvalidLine,
-  errorDeclarationProperty,
-} from "./errors/errors_general"
-import { errorValueLineToGo, errorValueNotRange } from "./errors/errors_tags"
+import { errorInvalidLine, checkDeclarationProperty } from "./errors/errors"
+import { errorValueLineToGo, errorValueNotRange } from "./errors/errors"
 import { propertyProgram } from "./constants"
 
 let codeSize
@@ -12,18 +9,17 @@ programStore.subscribe((program) => {
 })
 
 const declareTags = (splitLine, indexLine) => {
-  if (splitLine[0] !== "tags") {
+  if (splitLine[0] !== "etiqueta") {
     return
   }
-
   const error = checkTagSyntax(splitLine, indexLine)
-  if (!error) {
+  if (error) {
     programStore.addElementToListProperty(propertyProgram.errors, error)
     return
   }
 
   const newTag = createTag(splitLine, indexLine)
-  programStore.addElementToListProperty(propertyProgram.variables, newTag)
+  programStore.addElementToListProperty(propertyProgram.tags, newTag)
 }
 
 const checkTagSyntax = (splitLine, indexLine) => {
@@ -31,7 +27,7 @@ const checkTagSyntax = (splitLine, indexLine) => {
     return errorInvalidLine(splitLine, indexLine)
   }
 
-  const error = errorDeclarationProperty(splitLine, indexLine)
+  const error = checkDeclarationProperty(splitLine, indexLine)
   if (error) {
     return error
   }
