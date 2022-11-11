@@ -1,6 +1,9 @@
 import { application } from "./../../store/program_store"
-import { errorInvalidLine, checkDeclarationProperty } from "./errors/errors"
-import { errorValueLineToGo, errorValueNotRange } from "./errors/errors"
+import {
+  errorInvalidLine,
+  checkDeclarationProperty,
+} from "./errors/errors_check"
+import { errorValueLineToGo, errorValueNotRange } from "./errors/errors_check"
 import { propertyProgram } from "./constants"
 
 let codeSize

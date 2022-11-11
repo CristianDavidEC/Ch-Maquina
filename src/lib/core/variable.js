@@ -2,9 +2,12 @@ import { application } from "../../store/program_store"
 
 import { validTypeVariables } from "./constants"
 
-import { errorTypeOfVariable, errorTypeValue } from "./errors/errors"
+import { errorTypeOfVariable, errorTypeValue } from "./errors/errors_check"
 
-import { errorInvalidLine, checkDeclarationProperty } from "./errors/errors"
+import {
+  errorInvalidLine,
+  checkDeclarationProperty,
+} from "./errors/errors_check"
 
 const declareVariables = (splitLine, indexLine) => {
   if (splitLine[0] !== "nueva") {

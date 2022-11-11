@@ -3,6 +3,7 @@ import { writable } from "svelte/store"
 function createApplicationStore() {
   const { subscribe, update, set } = writable({
     name: "",
+    idAp: "",
     state: "",
     codeSize: 0,
     acumulator: 0,
@@ -32,6 +33,7 @@ function createApplicationStore() {
       set({
         name: "",
         code: [],
+        idAp: "",
         variables: [],
         tags: [],
         errors: [],

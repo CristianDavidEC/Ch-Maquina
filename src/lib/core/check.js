@@ -7,9 +7,9 @@ import {
   errorNoReturnInstrucction,
   errorTypeValue,
   errorTagIsNotDefined,
-} from "./errors/errors"
+} from "./errors/errors_check"
 import { validInstructions, propertyProgram, statusProgram } from "./constants"
-import { errorInvalidInstruction } from "./errors/errors"
+import { errorInvalidInstruction } from "./errors/errors_check"
 import { findVariable, findTag } from "../../store/tools"
 
 const regexNameProp = new RegExp("^[a-zA-Z_][a-zA-Z0-9_]*$")
@@ -22,9 +22,8 @@ application.subscribe((app) => {
 const instructionsEvaluated = ["", "//", "retorne", "nueva", "etiqueta"]
 
 const syntaxCheck = (code) => {
-  checkRetorne(code)
   declareVarsAndTags(code)
-
+  checkRetorne(code)
   code.forEach((line, indexLine) => {
     line = line.trim()
     const splitLine = line.split(" ")
@@ -32,14 +31,15 @@ const syntaxCheck = (code) => {
 
     if (instructionsEvaluated.includes(splitLine[0])) return
 
-    if (!validInstructions[splitLine[0]]) {
+    const instruction = validInstructions[splitLine[0]]
+    if (!instruction) {
       const error = errorInvalidInstruction(splitLine[0], indexLine)
       application.addElementToListProperty(propertyProgram.errors, error)
 
       return
     }
 
-    checkXInstructions[splitLine[0]](splitLine, indexLine)
+    checkXInstructions[instruction.check](splitLine, indexLine)
   })
 
   validateStatusProgram()
@@ -171,28 +171,11 @@ const checkVaya = (splitLine, indexLine) => {
 }
 
 const checkXInstructions = {
-  cargue: checkVariableOperations,
-  almacene: checkVariableOperations,
-  lea: checkVariableOperations,
-  sume: checkVariableOperations,
-  reste: checkVariableOperations,
-  multiplique: checkVariableOperations,
-  divida: checkVariableOperations,
-  potencia: checkVariableOperations,
-  modulo: checkVariableOperations,
-  concatene: checkVariableOperations,
-  elimine: checkVariableOperations,
-  extraiga: checkExtraiga,
-  Y: checkLogicalOperation,
-  O: checkLogicalOperation,
-  NO: checkLogicalOperation,
-  menor: checkLogicalOperation,
-  mayor: checkLogicalOperation,
-  igual: checkLogicalOperation,
-  muestre: checkVariableOperations,
-  imprima: checkVariableOperations,
-  vaya: checkVaya,
-  vayasi: checkVayaSi,
+  checkVariableOperations,
+  checkExtraiga,
+  checkLogicalOperation,
+  checkVaya,
+  checkVayaSi,
 }
 
 export { syntaxCheck, regexNameProp }
