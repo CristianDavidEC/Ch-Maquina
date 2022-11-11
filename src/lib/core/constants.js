@@ -26,7 +26,7 @@ const validInstructions = {
   retorne: true,
 }
 
-const validString = {
+/*const validString = {
   cargue: "cargue",
   almacene: "almacene",
   nueva: "nueva",
@@ -52,7 +52,7 @@ const validString = {
   vaya: "vaya",
   vayasi: "vayasi",
   retorne: "retorne",
-}
+}*/
 
 const validTypeVariables = {
   I: true,
@@ -82,10 +82,4 @@ const statusProgram = {
   wrong: "wrong",
 }
 
-export {
-  validInstructions,
-  validString,
-  propertyProgram,
-  validTypeVariables,
-  statusProgram,
-}
+export { validInstructions, propertyProgram, validTypeVariables, statusProgram }

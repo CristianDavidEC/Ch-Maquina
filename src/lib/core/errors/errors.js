@@ -22,7 +22,9 @@ const errorUseReservedWord = (instruction, indexCode) => {
 }
 
 const errorSyntaxName = (instruction, indexCode) => {
-  return `Error: ${instruction}, does not meet variable name specifications | ${indexCode}:`
+  return `Error: ${instruction.join(
+    " "
+  )}, does not meet variable name specifications | ${indexCode}:`
 }
 
 const errorWrongDefineOperation = (lines, indexCode) => {
@@ -65,7 +67,7 @@ const checkDeclarationProperty = (splitLine, indexLine) => {
   }
 
   if (!regexNameProp.test(splitLine[1])) {
-    return errorSyntaxName(splitLine[1], indexLine)
+    return errorSyntaxName(splitLine, indexLine)
   }
 }
 

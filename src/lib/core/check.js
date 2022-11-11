@@ -19,26 +19,18 @@ application.subscribe((app) => {
   programa = app
 })
 
+const instructionsEvaluated = ["", "//", "retorne", "nueva", "etiqueta"]
+
 const syntaxCheck = (code) => {
   checkRetorne(code)
   declareVarsAndTags(code)
 
   code.forEach((line, indexLine) => {
-    line.trim()
+    line = line.trim()
     const splitLine = line.split(" ")
     application.addElementToListProperty(propertyProgram.code, line)
 
-    if (splitLine[0] === "") {
-      return
-    }
-
-    if (splitLine[0] === "//") {
-      return
-    }
-
-    if (splitLine[0] === "retorne") {
-      return
-    }
+    if (instructionsEvaluated.includes(splitLine[0])) return
 
     if (!validInstructions[splitLine[0]]) {
       const error = errorInvalidInstruction(splitLine[0], indexLine)
@@ -47,9 +39,13 @@ const syntaxCheck = (code) => {
       return
     }
 
-    checkSyntaxOperation(splitLine, indexLine)
+    checkXInstructions[splitLine[0]](splitLine, indexLine)
   })
 
+  validateStatusProgram()
+}
+
+const validateStatusProgram = () => {
   if (programa.errors.length > 0) {
     application.assignPropsValue(propertyProgram.state, statusProgram.wrong)
 
@@ -60,46 +56,26 @@ const syntaxCheck = (code) => {
 
 const declareVarsAndTags = (code) => {
   code.forEach((line, indexLine) => {
-    line.trim()
+    line = line.trim()
     const splitLine = line.split(" ")
     declareVariables(splitLine, indexLine)
     declareTags(splitLine, indexLine)
   })
 }
 
-const checkSyntaxOperation = (splitLine, indexLine) => {
-  const operation = splitLine[0]
+const checkVariableOperations = (splitLine, indexLine) => {
+  if (splitLine.length !== 2) {
+    const error = errorWrongDefineOperation(splitLine, indexLine)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
-  if (operation === "nueva" || operation === "etiqueta") {
     return
   }
 
-  if (operation === "vaya" || operation === "vayasi") {
-    checkVayaOperation(splitLine, indexLine)
+  if (splitLine[1] === "acumulador") {
     return
   }
 
-  if (operation === "extraiga") {
-    checkExtraiga(splitLine, indexLine)
-    return
-  }
-
-  if (splitLine.length === 2) {
-    const variable = findVariable(splitLine[1])
-    checkVariableOperations(variable, splitLine, indexLine)
-    return
-  }
-
-  if (splitLine.length === 4) {
-    checkLogicalOperation(splitLine, indexLine)
-    return
-  }
-
-  const error = errorWrongDefineOperation(splitLine, indexLine)
-  application.addElementToListProperty(propertyProgram.errors, error)
-}
-
-const checkVariableOperations = (variable, splitLine, indexLine) => {
+  const variable = findVariable(splitLine[1])
   if (!variable) {
     const error = errorVariableIsNotDefined(splitLine, indexLine)
     application.addElementToListProperty(propertyProgram.errors, error)
@@ -124,12 +100,16 @@ const checkRetorne = (code) => {
 }
 
 const checkLogicalOperation = (splitLine, indexLine) => {
-  const variablesLogic = splitLine.shift()
-  console.log(variablesLogic)
-  variablesLogic.forEach((variable) => {
-    const variableFound = findVariable(variable)
-    checkVariableOperations(variableFound, [variable], indexLine)
+  if (splitLine.length !== 4) {
+    const error = errorWrongDefineOperation(splitLine, indexLine)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
+    return
+  }
+
+  splitLine.shift()
+  splitLine.forEach((variable) => {
+    const variableFound = findVariable(variable)
     if (variableFound.type !== "L") {
       const error = errorTypeValue(variable, indexLine)
       application.addElementToListProperty(propertyProgram.errors, error)
@@ -150,20 +130,6 @@ const checkExtraiga = (splitLine, indexLine) => {
   if (isNaN(Number(splitLine[1]))) {
     const error = errorTypeValue(splitLine[1], indexLine)
     application.addElementToListProperty(propertyProgram.errors, error)
-
-    return
-  }
-}
-
-const checkVayaOperation = (splitLine, indexLine) => {
-  if (splitLine[0] === "vaya") {
-    checkVaya(splitLine, indexLine)
-
-    return
-  }
-
-  if (splitLine[0] === "vayasi") {
-    checkVayaSi(splitLine, indexLine)
 
     return
   }
@@ -202,6 +168,31 @@ const checkVaya = (splitLine, indexLine) => {
 
     return
   }
+}
+
+const checkXInstructions = {
+  cargue: checkVariableOperations,
+  almacene: checkVariableOperations,
+  lea: checkVariableOperations,
+  sume: checkVariableOperations,
+  reste: checkVariableOperations,
+  multiplique: checkVariableOperations,
+  divida: checkVariableOperations,
+  potencia: checkVariableOperations,
+  modulo: checkVariableOperations,
+  concatene: checkVariableOperations,
+  elimine: checkVariableOperations,
+  extraiga: checkExtraiga,
+  Y: checkLogicalOperation,
+  O: checkLogicalOperation,
+  NO: checkLogicalOperation,
+  menor: checkLogicalOperation,
+  mayor: checkLogicalOperation,
+  igual: checkLogicalOperation,
+  muestre: checkVariableOperations,
+  imprima: checkVariableOperations,
+  vaya: checkVaya,
+  vayasi: checkVayaSi,
 }
 
 export { syntaxCheck, regexNameProp }
