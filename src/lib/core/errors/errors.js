@@ -36,9 +36,7 @@ const errorVariableIsNotDefined = (lines, indexCode) => {
 }
 
 const errorTagIsNotDefined = (lines, indexCode) => {
-  return `Error: ${lines.join(
-    " "
-  )}, the variable is not defined | ${indexCode}:`
+  return `Error: ${lines.join(" ")}, the tag is not defined | ${indexCode}:`
 }
 
 const errorTypeOfVariable = (instruction, indexCode) => {

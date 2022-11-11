@@ -1,7 +1,17 @@
 import { writable } from "svelte/store"
 
-function createProgramStore() {
-  const { subscribe, update, set } = writable(objetProgram)
+function createApplicationStore() {
+  const { subscribe, update, set } = writable({
+    name: "",
+    state: "",
+    codeSize: 0,
+    acumulator: 0,
+    codeIndexCurrent: 0,
+    variables: [],
+    tags: [],
+    code: [],
+    errors: [],
+  })
 
   return {
     subscribe,
@@ -18,23 +28,23 @@ function createProgramStore() {
         return program
       }),
 
-    restartProgram: () => set(objetProgram),
+    restartApplication: () =>
+      set({
+        name: "",
+        code: [],
+        variables: [],
+        tags: [],
+        errors: [],
+        state: "",
+        codeSize: 0,
+        codeIndexCurrent: 0,
+        acumulator: 0,
+      }),
   }
-}
-
-const objetProgram = {
-  name: "",
-  state: "",
-  codeSize: 0,
-  acumulator: 0,
-  codeIndexCurrent: 0,
-  variables: [],
-  tags: [],
-  code: [],
-  errors: [],
 }
 
 export const variables = writable([])
 export const tags = writable([])
-export const programsLoaded = writable([])
-export const programStore = createProgramStore()
+export const allApplications = writable([])
+
+export const application = createApplicationStore()

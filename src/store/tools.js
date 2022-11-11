@@ -1,7 +1,7 @@
-import { programStore } from "./program_store"
+import { application } from "./program_store"
 
 let programa
-programStore.subscribe((program) => {
+application.subscribe((program) => {
   programa = program
 })
 

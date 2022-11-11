@@ -1,4 +1,4 @@
-import { programStore } from "../../store/program_store"
+import { application } from "../../store/program_store"
 
 import { validTypeVariables } from "./constants"
 
@@ -13,14 +13,13 @@ const declareVariables = (splitLine, indexLine) => {
 
   const error = checkVaribleSyntax(splitLine, indexLine)
   if (error) {
-    programStore.addElementToListProperty("errors", error)
+    application.addElementToListProperty("errors", error)
 
     return
   }
 
   const newVariable = createVariable(splitLine, indexLine)
-  //console.log(newVariable)
-  programStore.addElementToListProperty("variables", newVariable)
+  application.addElementToListProperty("variables", newVariable)
 }
 
 const checkVaribleSyntax = (splitLine, indexLine) => {

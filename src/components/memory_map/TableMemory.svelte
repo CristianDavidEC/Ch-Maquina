@@ -5,7 +5,7 @@
   import VscSymbolVariable from "svelte-icons-pack/vsc/VscSymbolVariable"
   import FiCpu from "svelte-icons-pack/fi/FiCpu"
   import CgHashtag from "svelte-icons-pack/cg/CgHashtag"
-  import { programStore } from "../../store/program_store"
+  import { application } from "../../store/program_store"
 </script>
 
 <div>
@@ -31,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each $programStore.code as line}
+      {#each $application.code as line}
         <tr
           class="border-b-2 transition duration-150 ease-in-out hover:bg-blue-800/20"
         >

@@ -3,7 +3,7 @@
   import BsMemory from "svelte-icons-pack/bs/BsMemory"
   import SiCodefactor from "svelte-icons-pack/si/SiCodefactor"
   import VscSymbolVariable from "svelte-icons-pack/vsc/VscSymbolVariable"
-  import { programStore } from "../../store/program_store"
+  import { application } from "../../store/program_store"
 </script>
 
 <div>
@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each $programStore.variables as variable}
+      {#each $application.variables as variable}
         <tr
           class="border-b-2 border-amber-800 transition duration-150 ease-in-out hover:hover:bg-amber-600/20"
         >

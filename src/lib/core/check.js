@@ -1,4 +1,4 @@
-import { programStore } from "../../store/program_store"
+import { application } from "../../store/program_store"
 import { declareVariables } from "./variable"
 import { declareTags } from "./tags"
 import {
@@ -8,15 +8,15 @@ import {
   errorTypeValue,
   errorTagIsNotDefined,
 } from "./errors/errors"
-import { validInstructions, propertyProgram } from "./constants"
+import { validInstructions, propertyProgram, statusProgram } from "./constants"
 import { errorInvalidInstruction } from "./errors/errors"
 import { findVariable, findTag } from "../../store/tools"
 
 const regexNameProp = new RegExp("^[a-zA-Z_][a-zA-Z0-9_]*$")
 
 let programa
-programStore.subscribe((program) => {
-  programa = program
+application.subscribe((app) => {
+  programa = app
 })
 
 const syntaxCheck = (code) => {
@@ -26,7 +26,7 @@ const syntaxCheck = (code) => {
   code.forEach((line, indexLine) => {
     line.trim()
     const splitLine = line.split(" ")
-    programStore.addElementToListProperty(propertyProgram.code, line)
+    application.addElementToListProperty(propertyProgram.code, line)
 
     if (splitLine[0] === "") {
       return
@@ -42,7 +42,7 @@ const syntaxCheck = (code) => {
 
     if (!validInstructions[splitLine[0]]) {
       const error = errorInvalidInstruction(splitLine[0], indexLine)
-      programStore.addElementToListProperty(propertyProgram.errors, error)
+      application.addElementToListProperty(propertyProgram.errors, error)
 
       return
     }
@@ -50,7 +50,12 @@ const syntaxCheck = (code) => {
     checkSyntaxOperation(splitLine, indexLine)
   })
 
-  console.log(programa)
+  if (programa.errors.length > 0) {
+    application.assignPropsValue(propertyProgram.state, statusProgram.wrong)
+
+    return
+  }
+  application.assignPropsValue(propertyProgram.state, statusProgram.ready)
 }
 
 const declareVarsAndTags = (code) => {
@@ -91,20 +96,20 @@ const checkSyntaxOperation = (splitLine, indexLine) => {
   }
 
   const error = errorWrongDefineOperation(splitLine, indexLine)
-  programStore.addElementToListProperty(propertyProgram.errors, error)
+  application.addElementToListProperty(propertyProgram.errors, error)
 }
 
 const checkVariableOperations = (variable, splitLine, indexLine) => {
   if (!variable) {
     const error = errorVariableIsNotDefined(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
 
   if (variable.indexLine > indexLine) {
     const error = errorVariableIsNotDefined(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
@@ -112,24 +117,22 @@ const checkVariableOperations = (variable, splitLine, indexLine) => {
 
 const checkRetorne = (code) => {
   const finalLine = code[code.length - 1]
-  console.log(finalLine)
   if (!finalLine.startsWith("retorne")) {
     const error = errorNoReturnInstrucction("retorne", code.length)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
   }
 }
 
 const checkLogicalOperation = (splitLine, indexLine) => {
-  console.log(splitLine)
   const variablesLogic = splitLine.shift()
-
+  console.log(variablesLogic)
   variablesLogic.forEach((variable) => {
     const variableFound = findVariable(variable)
     checkVariableOperations(variableFound, [variable], indexLine)
 
     if (variableFound.type !== "L") {
       const error = errorTypeValue(variable, indexLine)
-      programStore.addElementToListProperty(propertyProgram.errors, error)
+      application.addElementToListProperty(propertyProgram.errors, error)
 
       return
     }
@@ -139,14 +142,14 @@ const checkLogicalOperation = (splitLine, indexLine) => {
 const checkExtraiga = (splitLine, indexLine) => {
   if (splitLine.length !== 2) {
     const error = errorWrongDefineOperation(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
 
   if (isNaN(Number(splitLine[1]))) {
     const error = errorTypeValue(splitLine[1], indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
@@ -169,7 +172,7 @@ const checkVayaOperation = (splitLine, indexLine) => {
 const checkVayaSi = (splitLine, indexLine) => {
   if (splitLine.length !== 3) {
     const error = errorWrongDefineOperation(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
@@ -177,8 +180,8 @@ const checkVayaSi = (splitLine, indexLine) => {
   const tag = findTag(splitLine[1])
   const tag2 = findTag(splitLine[2])
   if (!tag || !tag2) {
-    const error = errorVariableIsNotDefined(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    const error = errorTagIsNotDefined(splitLine, indexLine)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
@@ -187,7 +190,7 @@ const checkVayaSi = (splitLine, indexLine) => {
 const checkVaya = (splitLine, indexLine) => {
   if (splitLine.length !== 2) {
     const error = errorTagIsNotDefined(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }
@@ -195,7 +198,7 @@ const checkVaya = (splitLine, indexLine) => {
   const tag = findTag(splitLine[1])
   if (!tag) {
     const error = errorTagIsNotDefined(splitLine, indexLine)
-    programStore.addElementToListProperty(propertyProgram.errors, error)
+    application.addElementToListProperty(propertyProgram.errors, error)
 
     return
   }

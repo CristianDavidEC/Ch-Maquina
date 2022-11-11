@@ -2,8 +2,8 @@
   import FaSolidLaptopCode from "svelte-icons-pack/fa/FaSolidLaptopCode"
   import Icon from "svelte-icons-pack/Icon.svelte"
   import { syntaxCheck } from "../../lib/core/check"
-  import { programStore } from "../../store/program_store"
-  import { statusProgram, propertyProgram } from "../../lib/core/constants"
+  import { application, allApplications } from "../../store/program_store"
+  import { propertyProgram } from "../../lib/core/constants"
 
   const processFilesSelected = (event) => {
     const filesEvent = event.target.files
@@ -14,21 +14,27 @@
       reader.onload = (e) => {
         const content = e.target.result
         const splitcontent = content.toString().split("\r\n")
-        programStore.assignPropsValue(propertyProgram.name, file.name)
-        programStore.assignPropsValue(
-          propertyProgram.state,
-          statusProgram.loading
-        )
-        programStore.assignPropsValue(
+        application.assignPropsValue(propertyProgram.name, file.name)
+        application.assignPropsValue(
           propertyProgram.codeSize,
           splitcontent.length
         )
 
         syntaxCheck(splitcontent)
+        addApp($application)
+        application.restartApplication()
       }
-
       reader.readAsText(file)
     }
+
+    console.log($allApplications)
+  }
+
+  const addApp = (newApp) => {
+    allApplications.update((apps) => {
+      apps.push(newApp)
+      return apps
+    })
   }
 </script>
 
