@@ -60,20 +60,7 @@ const validTypeVariables = {
   C: true,
   L: true,
 }
-
-const propertyProgram = {
-  name: "name",
-  state: "state",
-  codeSize: "codeSize",
-  acumulator: "acumulator",
-  codeIndexCurrent: "codeIndexCurrent",
-  variables: "variables",
-  tags: "tags",
-  code: "code",
-  errors: "errors",
-}
-
-const statusProgram = {
+const stateProgram = {
   ready: "ready",
   running: "running",
   stopped: "stopped",
@@ -82,4 +69,4 @@ const statusProgram = {
   wrong: "wrong",
 }
 
-export { validInstructions, propertyProgram, validTypeVariables, statusProgram }
+export { validInstructions, validTypeVariables, stateProgram }

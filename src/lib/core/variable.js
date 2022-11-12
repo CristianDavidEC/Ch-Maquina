@@ -1,28 +1,24 @@
-import { application } from "../../store/program_store"
-
 import { validTypeVariables } from "./constants"
-
 import { errorTypeOfVariable, errorTypeValue } from "./errors/errors_check"
-
 import {
   errorInvalidLine,
   checkDeclarationProperty,
 } from "./errors/errors_check"
 
-const declareVariables = (splitLine, indexLine) => {
+const declareVariables = (splitLine, indexLine, application) => {
   if (splitLine[0] !== "nueva") {
     return
   }
 
   const error = checkVaribleSyntax(splitLine, indexLine)
   if (error) {
-    application.addElementToListProperty("errors", error)
+    application.errors.push(error)
 
     return
   }
 
   const newVariable = createVariable(splitLine, indexLine)
-  application.addElementToListProperty("variables", newVariable)
+  application.variables.push(newVariable)
 }
 
 const checkVaribleSyntax = (splitLine, indexLine) => {

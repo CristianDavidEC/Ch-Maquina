@@ -9,6 +9,7 @@
   let appNameSelected = ""
 
   function handleClick(app) {
+    console.log(app)
     appNameSelected = app.name
   }
 </script>

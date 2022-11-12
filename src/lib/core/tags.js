@@ -1,31 +1,25 @@
-import { application } from "./../../store/program_store"
 import {
   errorInvalidLine,
   checkDeclarationProperty,
 } from "./errors/errors_check"
 import { errorValueLineToGo, errorValueNotRange } from "./errors/errors_check"
-import { propertyProgram } from "./constants"
 
-let codeSize
-application.subscribe((program) => {
-  codeSize = program.codeSize
-})
-
-const declareTags = (splitLine, indexLine) => {
+const declareTags = (splitLine, indexLine, application) => {
   if (splitLine[0] !== "etiqueta") {
     return
   }
-  const error = checkTagSyntax(splitLine, indexLine)
+
+  const error = checkTagSyntax(splitLine, indexLine, application)
   if (error) {
-    application.addElementToListProperty(propertyProgram.errors, error)
+    application.errors.push(error)
     return
   }
 
   const newTag = createTag(splitLine, indexLine)
-  application.addElementToListProperty(propertyProgram.tags, newTag)
+  application.tags.push(newTag)
 }
 
-const checkTagSyntax = (splitLine, indexLine) => {
+const checkTagSyntax = (splitLine, indexLine, application) => {
   if (splitLine.length !== 3) {
     return errorInvalidLine(splitLine, indexLine)
   }
@@ -39,7 +33,7 @@ const checkTagSyntax = (splitLine, indexLine) => {
     return errorValueLineToGo(splitLine[2], indexLine)
   }
 
-  if (Number(splitLine[2]) > codeSize || Number(splitLine[2]) < 0) {
+  if (Number(splitLine[2]) > application.codeSize || Number(splitLine[2]) < 0) {
     return errorValueNotRange(splitLine[2], indexLine)
   }
 }
