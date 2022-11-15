@@ -21,9 +21,19 @@ const restartApplication = () => {
   application.acumulator = 0
 }
 
+const randomAppCode = () => {
+  const characters = "ABCDEF0123456789"
+  let appCode = ""
+  for (let i = 0; i < 3; i++) {
+    appCode += characters.charAt(Math.floor(Math.random() * characters.length))
+  }
+
+  return appCode
+}
+
 const application = {
   name: "",
-  idAp: "",
+  idApp: "",
   state: "",
   codeSize: 0,
   acumulator: 0,
@@ -36,4 +46,5 @@ const application = {
   findTag,
   restartApplication,
 }
-export { application }
+
+export { application, randomAppCode }

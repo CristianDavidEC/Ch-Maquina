@@ -2,6 +2,7 @@
   import Icon from "svelte-icons-pack/Icon.svelte"
   import BsMemory from "svelte-icons-pack/bs/BsMemory"
   import SiCodefactor from "svelte-icons-pack/si/SiCodefactor"
+  import { currentApp } from "../../store/program_store"
 </script>
 
 <div>
@@ -17,12 +18,12 @@
       </tr>
     </thead>
     <tbody>
-      {#each Array(0) as _, i}
+      {#each $currentApp.code as code, index}
         <tr
           class="border-b-2 border-amber-800 transition duration-150 ease-in-out hover:hover:bg-amber-600/20"
         >
-          <td class="px-3 py-2"> A00X81 </td>
-          <td class="px-3 py-2"> Var nombre S </td>
+          <td class="px-3 py-2"> {$currentApp.idApp}X{index + 1} </td>
+          <td class="px-3 py-2"> {code} </td>
         </tr>
       {/each}
     </tbody>

@@ -1,5 +1,5 @@
 <div class="block border-2 rounded-lg h-full">
-  <img class="m-auto mt-1" src="impresora.png" alt="monitor" />
+  <img class="m-auto my-2" src="impresora.png" alt="monitor" />
 
   <p class="m-4" />
 </div>

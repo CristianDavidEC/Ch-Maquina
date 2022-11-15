@@ -2,6 +2,7 @@
   import Icon from "svelte-icons-pack/Icon.svelte"
   import BsMemory from "svelte-icons-pack/bs/BsMemory"
   import AiOutlineTag from "svelte-icons-pack/ai/AiOutlineTag"
+  import { currentApp, tags } from "../../store/program_store"
 </script>
 
 <div>
@@ -17,12 +18,12 @@
       </tr>
     </thead>
     <tbody>
-      {#each Array(0) as _, i}
+      {#each $tags as tag}
         <tr
           class="border-b-2 border-amber-800/80 transition duration-150 ease-in-out hover:hover:bg-amber-600/20"
         >
-          <td class="px-3 py-2"> A00X81 </td>
-          <td class="px-3 py-2"> Etiqueta fin 41 </td>
+          <td class="px-3 py-2"> {$currentApp.idApp}X{tag.indexLine} </td>
+          <td class="px-3 py-2"> {tag.content} </td>
         </tr>
       {/each}
     </tbody>

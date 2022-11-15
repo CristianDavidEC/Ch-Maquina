@@ -3,27 +3,31 @@
   import Icon from "svelte-icons-pack/Icon.svelte"
   import { syntaxCheck } from "../../lib/core/check"
   import { allApplications } from "../../store/program_store"
-  import { application } from "../../store/application"
+  import { application, randomAppCode } from "../../store/application"
+  import { errorMemory } from "../../store/program_store"
+  import { memory, kernel, requiredMemory } from "../../store/manager"
+
+  const allMemory = 1000
 
   const processFilesSelected = (event) => {
-    const filesEvent = event.target.files
+    const file = event.target.files[0]
+    const reader = new FileReader()
 
-    for (const file of filesEvent) {
-      const reader = new FileReader()
-
-      reader.onload = (e) => {
-        const content = e.target.result
-        const splitcontent = content.toString().split("\r\n")
-        application.name = file.name
-        application.code = splitcontent
-        application.codeSize = splitcontent.length
-        syntaxCheck(application)
-        addApp({ ...application })
-      }
-      reader.readAsText(file)
+    reader.onload = (e) => {
+      const content = e.target.result
+      const splitcontent = content.toString().split("\r\n")
+      application.name = file.name
+      application.code = splitcontent
+      application.codeSize = splitcontent.length
+      application.idApp = randomAppCode()
+      syntaxCheck(application)
+      addApp({ ...application })
+      requiredMemory.update((n) => n + splitcontent.length)
+      checkMemoryAvailability()
     }
+    reader.readAsText(file)
+
     application.restartApplication()
-    console.log($allApplications)
   }
 
   const addApp = (newApp) => {
@@ -31,6 +35,21 @@
       apps.push(newApp)
       return apps
     })
+  }
+
+  const checkMemoryAvailability = () => {
+    let memoryFilled = $requiredMemory + $kernel
+    let memoryAvailable = (allMemory * $memory) / 100
+    console.log(memoryAvailable)
+
+    if (memoryFilled > memoryAvailable) {
+      const newError = `The amount of available memory is insufficient. Memory required:${memoryFilled} | Memory available:${memoryAvailable}`
+      errorMemory.set(newError)
+
+      return
+    }
+
+    errorMemory.set("")
   }
 </script>
 
@@ -51,8 +70,6 @@
         cursor-pointer
         focus:text-gray-900 focus:bg-white focus:border-pink-900 focus:outline-none"
     type="file"
-    id="formFileMultiple"
-    multiple
     on:change={processFilesSelected}
   />
 </div>
