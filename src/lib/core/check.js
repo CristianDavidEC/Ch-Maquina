@@ -96,16 +96,28 @@ const checkRetorne = (application) => {
 }
 
 const checkLogicalOperation = (splitLine, indexLine, application) => {
-  if (splitLine.length !== 4) {
+  const evaluatedLogic = ["O", "Y", "NO"]
+
+  if (splitLine[0] === "NO" && splitLine.length !== 3) {
     const error = errorWrongDefineOperation(splitLine, indexLine)
     application.errors.push(error)
 
     return
   }
 
+  if (splitLine.length !== 4 && splitLine[0] !== "NO") {
+    const error = errorWrongDefineOperation(splitLine, indexLine)
+    application.errors.push(error)
+
+    return
+  }
+
+  if (!evaluatedLogic.includes(splitLine[0])) return
+
   splitLine.shift()
   splitLine.forEach((variable) => {
     const variableFound = application.findVariable(variable)
+
     if (variableFound.type !== "L") {
       const error = errorTypeValue(variable, indexLine)
       application.errors.push(error)

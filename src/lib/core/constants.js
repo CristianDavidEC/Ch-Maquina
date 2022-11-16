@@ -13,7 +13,7 @@ const validInstructions = {
   concatene: { check: "checkVariableOperations" },
   elimine: { check: "checkVariableOperations" },
   extraiga: { check: "checkExtraiga" },
-  Y: { check: "checkExtraiga" },
+  Y: { check: "checkLogicalOperation" },
   O: { check: "checkLogicalOperation" },
   NO: { check: "checkLogicalOperation" },
   menor: { check: "checkLogicalOperation" },
