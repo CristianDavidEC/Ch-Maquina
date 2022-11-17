@@ -29,3 +29,5 @@ const extraiga = (lineCode, appExec, currentApp) => {
     )
   }
 }
+
+export { concatene, elimine, extraiga }

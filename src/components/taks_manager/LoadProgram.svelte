@@ -1,7 +1,7 @@
 <script>
   import FaSolidLaptopCode from "svelte-icons-pack/fa/FaSolidLaptopCode"
   import Icon from "svelte-icons-pack/Icon.svelte"
-  import { syntaxCheck } from "../../lib/core/check"
+  import { syntaxCheck } from "../../lib/core/checks/check"
   import { allApplications } from "../../store/program_store"
   import { application, randomAppCode } from "../../store/application"
   import { errorMemory } from "../../store/program_store"
@@ -40,7 +40,6 @@
   const checkMemoryAvailability = () => {
     let memoryFilled = $requiredMemory + $kernel
     let memoryAvailable = (allMemory * $memory) / 100
-    console.log(memoryAvailable)
 
     if (memoryFilled > memoryAvailable) {
       const newError = `The amount of available memory is insufficient. Memory required:${memoryFilled} | Memory available:${memoryAvailable}`

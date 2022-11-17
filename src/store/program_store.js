@@ -14,7 +14,11 @@ function createCurrentApp() {
 
   return {
     subscribe,
-    updateProperty: (prop, value) => update((app) => (app[prop] = value)),
+    updateProperty: (prop, value) =>
+      update((app) => {
+        app[prop] = value
+        return app
+      }),
     setCurrentApp: (newApp) =>
       update((app) => {
         app.name = newApp.name

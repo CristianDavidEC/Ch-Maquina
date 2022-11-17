@@ -6,9 +6,9 @@ import {
   errorNoReturnInstrucction,
   errorTypeValue,
   errorTagIsNotDefined,
-} from "./errors/errors_check"
+  errorInvalidInstruction,
+} from "../errors/errors_check"
 import { validInstructions, stateProgram } from "./constants"
-import { errorInvalidInstruction } from "./errors/errors_check"
 
 const regexNameProp = new RegExp("^[a-zA-Z_][a-zA-Z0-9_]*$")
 const instructionsEvaluated = ["", "//", "retorne", "nueva", "etiqueta"]

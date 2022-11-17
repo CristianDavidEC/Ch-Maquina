@@ -1,5 +1,5 @@
-import { validInstructions } from "../constants"
-import { regexNameProp } from "../check"
+import { validInstructions } from "../checks/constants"
+import { regexNameProp } from "../checks/check"
 
 const errorInvalidLine = (lines, indexCode) => {
   return `Error: ${lines.join(" ")}, is invalid declaration|${indexCode + 1}: `

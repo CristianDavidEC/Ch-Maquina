@@ -82,3 +82,5 @@ const lesser = (lineCode) => {
 
   updateVariable(result.name, 0)
 }
+
+export { and, or, not, equal, greater, lesser }

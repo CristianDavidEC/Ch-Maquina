@@ -1,5 +1,5 @@
 import { findVariable } from "./execute"
-import { outputs } from "../../store/program_store"
+import { outputs } from "../../../store/program_store"
 
 const goingOut = (lineCode, appExec) => {
   const out = {
@@ -26,3 +26,5 @@ const goingOut = (lineCode, appExec) => {
     return outputs
   })
 }
+
+export { goingOut }

@@ -1,5 +1,5 @@
 import { findVariable } from "./execute"
-import { errors } from "../../store/program_store"
+import { errors } from "../../../store/program_store"
 
 const sume = (lineCode, appExec, currentApp) => {
   const variable = findVariable(lineCode[1])
@@ -55,3 +55,5 @@ const modulo = (lineCode, appExec, currentApp) => {
     currentApp.updateProperty("acumulator", appExec.acumulator % variable.value)
   }
 }
+
+export { sume, reste, multiplique, divida, potencia, modulo }

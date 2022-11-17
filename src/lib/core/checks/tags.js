@@ -1,8 +1,8 @@
 import {
   errorInvalidLine,
   checkDeclarationProperty,
-} from "./errors/errors_check"
-import { errorValueLineToGo, errorValueNotRange } from "./errors/errors_check"
+} from "../errors/errors_check"
+import { errorValueLineToGo, errorValueNotRange } from "../errors/errors_check"
 
 const declareTags = (splitLine, indexLine, application) => {
   if (splitLine[0] !== "etiqueta") {

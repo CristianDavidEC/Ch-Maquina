@@ -10,6 +10,7 @@
     currentApp,
     errorMemory,
   } from "../../store/program_store"
+  import { execute } from "../../lib/core/execute/execute"
 
   let appNameSelected = ""
 
@@ -20,6 +21,7 @@
 
     appNameSelected = app.name
     currentApp.setCurrentApp(app)
+    execute()
   }
 </script>
 

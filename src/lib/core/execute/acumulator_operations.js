@@ -23,3 +23,5 @@ const typesOf = {
   C: (value) => value,
   L: (value) => (value > 1 ? 1 : 0),
 }
+
+export { almacene, cargue, lea }
