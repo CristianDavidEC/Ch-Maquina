@@ -1,9 +1,9 @@
 <script>
   import Icon from "svelte-icons-pack/Icon.svelte"
-  import BiTimer from "svelte-icons-pack/bi/BiTimer"
   import CgMenuMotion from "svelte-icons-pack/cg/CgMenuMotion"
   import RiLogoCodepenLine from "svelte-icons-pack/ri/RiLogoCodepenLine"
   import RiSystemApps2Line from "svelte-icons-pack/ri/RiSystemApps2Line"
+  import ProcessPlanner from "./ProcessPlanner.svelte"
   import { currentApp } from "../../store/program_store"
 </script>
 
@@ -22,4 +22,6 @@
     <Icon src={RiSystemApps2Line} size="25" className="inline-block m-1" />
     App execution: {$currentApp.name ? $currentApp.name : "N/A"}
   </h1>
+
+  <ProcessPlanner />
 </div>
