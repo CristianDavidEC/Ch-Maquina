@@ -42,12 +42,15 @@ const RoundRobin = () => {
       return app.state
     })
 
-    console.log(stateExc)
     if (stateExc.every((state) => state === stateProgram.finished)) {
       finished = false
     }
 
-    apps.forEach((app, index) => {
+    if (stateExc.indexOf("wrong") >= 0) {
+      finished = false
+    }
+
+    apps.forEach((app) => {
       if (errorM) {
         return
       }
