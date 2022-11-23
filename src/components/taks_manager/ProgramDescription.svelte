@@ -11,7 +11,8 @@
     restartValuesArrays,
     errorMemory,
   } from "../../store/program_store"
-  import { execute } from "../../lib/core/execute/execute"
+  import { execute, updateApp } from "../../lib/core/execute/execute"
+  import { stateProgram } from "../../lib/core/checks/constants"
 
   let appNameSelected = ""
 
@@ -24,7 +25,7 @@
 
     appNameSelected = app.name
     currentApp.setCurrentApp(app)
-    execute()
+    execute(0)
   }
 </script>
 

@@ -1,5 +1,5 @@
 <script>
-  import { processPlanner } from "../../store/manager"
+  import { processPlanner, quantumApp } from "../../store/manager"
 
   let process = [
     {
@@ -21,11 +21,12 @@
   ]
 
   let selected = process[0].func
+  let quantum = 5
 </script>
 
 <div class="mt-2">
   <select
-    class="w-full  rounded-md outline-none"
+    class="w-full rounded-md outline-none"
     bind:value={selected}
     on:change={() => processPlanner.set(selected)}
   >
@@ -35,4 +36,15 @@
       </option>
     {/each}
   </select>
+
+  <label>
+    Quantum
+    <input
+      bind:value={quantum}
+      placeholder="Quantum"
+      class="w-full rounded-md px-2 "
+      type="number"
+      on:change={() => quantumApp.set(quantum)}
+    />
+  </label>
 </div>

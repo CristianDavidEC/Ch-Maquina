@@ -46,7 +46,7 @@ allApplications.subscribe((value) => {
   aplicationsStore = value
 })
 
-const execute = () => {
+const execute = (quantum) => {
   if (errorsExec.length > 0) {
     return
   }
@@ -64,6 +64,7 @@ const execute = () => {
 
   updateApp(appExec.name, stateProgram.running)
   let index = appExec.codeIndexCurrent
+  let iteradorQuantum = 0
 
   while (finish) {
     let lineCode = appExec.code[index].split(" ")
@@ -88,10 +89,16 @@ const execute = () => {
 
     if (operation === "retorne") {
       finish = false
+      updateApp(appExec.name, stateProgram.finished)
+    }
+
+    if (quantum > 0) {
+      iteradorQuantum += 1
+      if (iteradorQuantum === quantum) {
+        finish = false
+      }
     }
   }
-
-  updateApp(appExec.name, stateProgram.finished)
 }
 
 const findVariable = (nameVariable) => {

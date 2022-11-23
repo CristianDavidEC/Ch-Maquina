@@ -4,7 +4,8 @@ import {
   restartValuesArrays,
   errorMemory,
 } from "../../../store/program_store"
-import { execute } from "../execute/execute"
+import { execute, updateApp } from "../execute/execute"
+import { stateProgram } from "../checks/constants"
 
 let aplicationsStore
 allApplications.subscribe((value) => {
@@ -25,7 +26,7 @@ const FCFS = () => {
     restartValuesArrays()
 
     currentApp.setCurrentApp(app)
-    execute()
+    execute(0)
   })
 }
 
