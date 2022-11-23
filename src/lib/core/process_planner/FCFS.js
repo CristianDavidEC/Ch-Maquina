@@ -18,6 +18,9 @@ errorMemory.subscribe((value) => {
 
 const FCFS = () => {
   aplicationsStore.forEach((app) => {
+    if (errorM) {
+      return
+    }
     currentApp.resetCurrentApp()
     restartValuesArrays()
 

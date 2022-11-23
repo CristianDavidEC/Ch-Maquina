@@ -1,9 +1,10 @@
 import { FCFS } from "./FCFS"
+import { SJFNoExpropiative } from "./SJFNoExpropriative"
 
 const executables = {
-  FCFS: FCFS,
-  SJFExpropriative: "SJFExpropriative",
-  SJFNonExpropriative: "SJFNonExpropriative",
+  FCFS,
+  SJFExpropriative: "XDXD",
+  SJFNoExpropiative,
   RoundRobin: "RoundRobin",
 }
 

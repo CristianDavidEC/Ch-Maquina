@@ -7,11 +7,11 @@
       name: "First Come First Serve",
     },
     {
-      func: "SJFExpropriative",
+      func: "SJFExpropiative",
       name: "Shortest Job First Expropriative",
     },
     {
-      func: "SJFNoExpropriative",
+      func: "SJFNoExpropiative",
       name: "Shortest Job First No Expropriative",
     },
     {

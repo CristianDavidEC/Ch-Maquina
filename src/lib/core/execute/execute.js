@@ -4,6 +4,7 @@ import {
   tags,
   errors,
   outputs,
+  allApplications,
 } from "../../../store/program_store"
 import { cargue, almacene, lea } from "./acumulator_operations"
 import {
@@ -18,11 +19,13 @@ import { concatene, elimine, extraiga } from "./string_operations"
 import { and, or, not, equal, greater, lesser } from "./logic_operations"
 import { goingOut } from "./outputs_operations"
 import { vaya, vayaSi } from "./flow_operations"
+import { stateProgram } from "../checks/constants"
 
 let variableExec
 let tagExec
 let appExec
 let errorsExec
+let aplicationsStore
 variables.subscribe((variables) => {
   variableExec = variables
 })
@@ -37,6 +40,10 @@ currentApp.subscribe((app) => {
 
 errors.subscribe((errors) => {
   errorsExec = errors
+})
+
+allApplications.subscribe((value) => {
+  aplicationsStore = value
 })
 
 const execute = () => {
@@ -55,6 +62,7 @@ const execute = () => {
     return outputs
   })
 
+  updateApp(appExec.name, stateProgram.running)
   let index = appExec.codeIndexCurrent
 
   while (finish) {
@@ -82,6 +90,8 @@ const execute = () => {
       finish = false
     }
   }
+
+  updateApp(appExec.name, stateProgram.finished)
 }
 
 const findVariable = (nameVariable) => {
@@ -96,6 +106,17 @@ const updateVariable = (nameVariable, value) => {
   variables.update((variables) => {
     variables[index].value = value
     return variables
+  })
+}
+
+const updateApp = (nameApp, value) => {
+  const index = aplicationsStore.findIndex(
+    (variable) => variable.name === nameApp
+  )
+
+  allApplications.update((app) => {
+    app[index].state = value
+    return app
   })
 }
 
@@ -174,4 +195,11 @@ const findIndexTag = (nameTag) => {
   return tagExec.findIndex((tag) => tag.name === nameTag)
 }
 
-export { execute, findVariable, findTag, updateVariable, findIndexTag }
+export {
+  execute,
+  findVariable,
+  findTag,
+  updateVariable,
+  findIndexTag,
+  updateApp,
+}
