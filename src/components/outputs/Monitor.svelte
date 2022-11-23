@@ -7,7 +7,7 @@
   } from "../../store/program_store"
 </script>
 
-<div class="block border-2 rounded-lg">
+<div class="block border-2 rounded-lg overflow-hidden">
   <img class="m-auto my-2" src="escritorio.png" alt="monitor" />
   {#if $errorMemory}
     <p class="bg-red-500 mx-2 rounded-md">{$errorMemory}</p>

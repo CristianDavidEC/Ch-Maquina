@@ -31,6 +31,15 @@ function createCurrentApp() {
         setValuesArrays(newApp)
         return app
       }),
+    resetCurrentApp: () =>
+      set({
+        name: "",
+        idApp: "",
+        state: "",
+        acumulator: 0,
+        codeIndexCurrent: 0,
+        code: [],
+      }),
   }
 }
 

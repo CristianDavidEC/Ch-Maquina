@@ -56,29 +56,29 @@ const execute = () => {
   })
 
   let index = appExec.codeIndexCurrent
-  let iteracion = 0
 
   while (finish) {
-    const lineCode = appExec.code[index].split(" ")
-    const operation = lineCode[0]
+    let lineCode = appExec.code[index].split(" ")
+    let operation = lineCode[0]
 
-    switch (operation) {
-      case "vaya":
-        index = vaya(lineCode, currentApp)
-        break
-      case "vayaSi":
-        index = vayaSi(lineCode, currentApp, appExec, index)
-        break
+    if (operation === "vaya") {
+      index = vaya(lineCode, currentApp)
+      lineCode = appExec.code[index].split(" ")
+      operation = lineCode[0]
+    }
+
+    if (operation === "vayasi") {
+      index = vayaSi(lineCode, currentApp, appExec, index)
+      lineCode = appExec.code[index].split(" ")
+      operation = lineCode[0]
     }
 
     operationsToExecute(operation, lineCode, currentApp, appExec)
 
     currentApp.updateProperty("codeIndexCurrent", index)
     index += 1
-    iteracion += 1
-    console.log(appExec.codeIndexCurrent)
 
-    if (operation === "retorne" || iteracion > 100) {
+    if (operation === "retorne") {
       finish = false
     }
   }
@@ -156,10 +156,10 @@ const operationsToExecute = (operation, lineCode, currentApp, appExec) => {
       lesser(lineCode)
       break
     case "imprima":
-      goingOut(lineCode, currentApp)
+      goingOut(lineCode, appExec)
       break
     case "muestre":
-      goingOut(lineCode, currentApp)
+      goingOut(lineCode, appExec)
       break
     default:
       break

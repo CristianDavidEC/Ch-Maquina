@@ -2,8 +2,8 @@ import { findTag } from "./execute"
 
 const vaya = (lineCode, currentApp) => {
   const tag = findTag(lineCode[1])
-  console.log(tag)
   currentApp.updateProperty("codeIndexCurrent", tag.lineToGo)
+  return tag.lineToGo
 }
 
 const vayaSi = (lineCode, currentApp, appExec, index) => {

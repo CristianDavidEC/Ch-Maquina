@@ -8,6 +8,7 @@
   import {
     allApplications,
     currentApp,
+    restartValuesArrays,
     errorMemory,
   } from "../../store/program_store"
   import { execute } from "../../lib/core/execute/execute"
@@ -18,6 +19,8 @@
     if ($errorMemory) {
       return
     }
+    currentApp.resetCurrentApp()
+    restartValuesArrays()
 
     appNameSelected = app.name
     currentApp.setCurrentApp(app)

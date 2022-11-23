@@ -22,7 +22,6 @@
   const checkMemoryAvailability = () => {
     let memoryFilled = $requiredMemory + $kernel
     let memoryAvailable = (allMemory * $memory) / 100
-    console.log(memoryAvailable)
 
     if (memoryFilled > memoryAvailable) {
       const newError = `The amount of available memory is insufficient. Memory required:${memoryFilled} | Memory available:${memoryAvailable}`

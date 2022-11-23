@@ -15,19 +15,16 @@ const elimine = (lineCode, appExec, currentApp) => {
   if (variable) {
     currentApp.updateProperty(
       "acumulator",
-      appExec.acumulator.replace(variable.value, "")
+      appExec.acumulator.replaceAll(variable.value, "")
     )
   }
 }
 
 const extraiga = (lineCode, appExec, currentApp) => {
-  const variable = findVariable(lineCode[1])
-  if (variable) {
-    currentApp.updateProperty(
-      "acumulator",
-      appExec.acumulator.substring(0, variable.value)
-    )
-  }
+  currentApp.updateProperty(
+    "acumulator",
+    appExec.acumulator.substring(0, lineCode[1])
+  )
 }
 
 export { concatene, elimine, extraiga }
